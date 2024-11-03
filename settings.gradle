@@ -17,4 +17,4 @@ buildscript() {
 }
 
 
-rootProject.name = "ExampleMod"
+rootProject.name = "SimplyZooming"

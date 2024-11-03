@@ -5,7 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [],
   "client": [
-    "MainMenuMixin"
+    "io.github.spicylemon2623.simply_zooming.mixins.MainMenuMixin"
   ],
   "injectors": {
     "defaultRequire": 1
