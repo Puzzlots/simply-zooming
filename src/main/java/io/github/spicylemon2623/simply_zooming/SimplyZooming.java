@@ -6,11 +6,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class SimplyZooming implements ModInitializer {
-	public static final Logger LOGGER = LoggerFactory.getLogger("Example Mod");
+	public static final Logger LOGGER = LoggerFactory.getLogger("Simply Zooming");
 
 	@Override
 	public void onInitialize(ModContainer mod) {
-		LOGGER.info("Example Mod Initialized!");
+		LOGGER.info("Simply Zooming Initialized!");
 	}
 }
 

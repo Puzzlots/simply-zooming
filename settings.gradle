@@ -9,7 +9,7 @@ buildscript() {
         mavenLocal()
     }
     dependencies {
-        classpath "org.codeberg.CRModders:cosmic-loom:1.1.0"
+        classpath "org.codeberg.CRModders:cosmic-loom:PR7-SNAPSHOT"
 
         // When testing locally, this can be used
 //        classpath "dev.crmodders:CosmicLoom:1.0.2"

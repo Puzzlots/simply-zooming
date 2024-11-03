@@ -35,7 +35,7 @@
       },
       {
         "id": "cosmicreach",
-        "versions": "*"
+        "versions": ">=0.3.4"
       }
     ]
   },

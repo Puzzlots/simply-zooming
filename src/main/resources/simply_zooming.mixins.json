@@ -1,12 +1,13 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.example.example_mod.mixins",
+  "package": "io.github.spicylemon2623.simply_zooming.mixins",
   "compatibilityLevel": "JAVA_17",
-  "mixins": [],
-  "client": [
-    "io.github.spicylemon2623.simply_zooming.mixins.MainMenuMixin"
+  "mixins": [
+    "FovModifierMixin",
+    "KeybindingMenuMixin"
   ],
+  "client": [],
   "injectors": {
     "defaultRequire": 1
   }
