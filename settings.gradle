@@ -1,0 +1,20 @@
+buildscript() {
+    repositories {
+        maven {
+            name "JitPack"
+            url "https://jitpack.io"
+        }
+
+        mavenCentral()
+        mavenLocal()
+    }
+    dependencies {
+        classpath "org.codeberg.CRModders:cosmic-loom:1.1.0"
+
+        // When testing locally, this can be used
+//        classpath "dev.crmodders:CosmicLoom:1.0.2"
+    }
+}
+
+
+rootProject.name = "ExampleMod"
