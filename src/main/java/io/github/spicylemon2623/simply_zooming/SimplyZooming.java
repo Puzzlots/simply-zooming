@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 public class SimplyZooming implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger("Simply Zooming");
 
+	public static float tempZoomFov = SZConfig.INSTANCE.zoomFov.getRealValue();
+
 	@Override
 	public void onInitialize(ModContainer mod) {
 		LOGGER.info("Simply Zooming Initialized!");
