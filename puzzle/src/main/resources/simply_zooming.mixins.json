@@ -6,7 +6,9 @@
   "mixins": [
   ],
   "client": [
-    "MainMenuMixin"
+    "FovModifierMixin",
+    "KeybindingMenuMixin",
+    "UIMixin"
   ],
   "injectors": {
     "defaultRequire": 1

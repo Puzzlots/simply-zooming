@@ -5,7 +5,6 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import finalforeach.cosmicreach.gamestates.ChatMenu;
 import finalforeach.cosmicreach.gamestates.InGame;
 import finalforeach.cosmicreach.settings.FloatSetting;
-import io.github.spicylemon2623.SimplyZooming.SZConfig;
 import io.github.spicylemon2623.SimplyZooming.SZoomControls;
 import io.github.spicylemon2623.SimplyZooming.SimplyZooming;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,7 +19,7 @@ public class FovModifierMixin {
         if (SZoomControls.zoomKeybind.isPressed() && !(currentGameState instanceof ChatMenu)){
             return SimplyZooming.tempZoomFov;
         } else if (!SZoomControls.zoomKeybind.isPressed() && !(currentGameState instanceof ChatMenu)) {
-            SimplyZooming.tempZoomFov = SZConfig.INSTANCE.zoomFov.getRealValue();
+            SimplyZooming.tempZoomFov = 60f;
         }
         return original.call(instance);
     }
