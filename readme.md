@@ -1,17 +1,18 @@
-# Cosmic Quilt Example Mod
-> The example mod for the [Cosmic Quilt](https://codeberg.org/CRModders/cosmic-quilt) Loader
+# ModMixer
 
-## How to test/build
-For testing in the dev env, you can use the `gradle run` task
+## How To Test Client & Server for puzzle
+- go to the Puzzle Subproject
+- For the Client you can use the `gradle :puzzle:runClient` task
+- For the Server  you can use the `gradle :puzzle:runServer` task
 
-For building, the usual `gradle build` task can be used. The output will be in the `build/libs/` folder
+## How To Test Client & Server for quilt
+ - go to the Quilt Subproject 
+ - For the Client you can use the `gradle :quilt:runClient` task
+ - For the Server  you can use the `gradle :quilt:runServer` task
 
-## Wiki
-For a wiki on how to use Cosmic Quilt & Quilt, please look at the [Cosmic Quilt wiki](https://codeberg.org/CRModders/cosmic-quilt/wiki) 
+## How to Build A Jar
+For building, use the `gradle buildAll` task. The output will be in the `build/libs/` folder
 
-## Notes
-- Most project properties can be changed in the `gradle.properties`
-- To change the version of Cosmic Loom, edit the `settings.gradle`
-- To change author, description and stuff that is not there, edit `src/main/resources/quilt.mod.json`
-- The project name is defined in `settings.gradle`
-- To add Quilt mods in the build, make sure to use `internal` rather than `implementation`
+## How to change properties
+- All mod properties can be edited in the rootProject `gradle.properties`
+- The project name is defined in `settings.gradle`.

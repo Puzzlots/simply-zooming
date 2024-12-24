@@ -1,80 +1,74 @@
 plugins {
-    id "java"
-    id "cosmicloom"
-    id "maven-publish"
+    id 'java'
+    id "io.github.pacifistmc.forgix" version "1.2.9"
+    id "cosmicloom" apply(false)
+    id "jigsaw" apply(false)
+    id "com.github.johnrengelman.shadow" apply(false)
 }
 
+forgix {
+    group = "${group}"
+    mergedJarName = "${mod_name}-${project.version}.jar"
+    outputDir = "build/libs"
 
-loom {
-    accessWidenerPath = file("src/main/resources/simply_zooming.accesswidener")
-}
+    quilt {
+        projectName = "quilt"
+        jarLocation = "build/libs/quilt-${project.version}.jar"
+    }
 
-
-repositories {
-    // Add repositories to retrieve artifacts from in here.
-    // You should only use this when depending on other mods because
-    // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-    // See https://docs.gradle.org/current/userguide/declaring_repositories.html
-    // for more information about repositories.
-}
-
-
-dependencies {
-    // Cosmic Reach
-    cosmicReach(loom.cosmicReachClient("pre-alpha", cosmic_reach_version))
-    cosmicReachServer(loom.cosmicReachServer("pre-alpha", cosmic_reach_version))
-    // Cosmic Quilt
-    modImplementation(loom.cosmicQuilt(cosmic_quilt_version))
-
-    // Modmenu
-//    modImplementation("org.codeberg.CRModders:modmenu:${modmenu_version}")
-}
-
-
-
-processResources {
-    def resourceTargets = [ // Locations of where to inject the properties
-            "quilt.mod.json"
-    ]
-
-    // Left item is the name in the target, right is the varuable name
-    def replaceProperties = [
-            "mod_version"     : project.version,
-            "mod_group"       : project.group,
-            "mod_name"        : project.name,
-            "mod_id"          : id,
-    ]
-
-
-    inputs.properties replaceProperties
-    replaceProperties.put "project", project
-    filesMatching(resourceTargets) {
-        expand replaceProperties
+    custom {
+        projectName = "puzzle"
+        jarLocation = "build/libs/puzzle-${project.version}-merged-bundle.jar"
     }
 }
 
+subprojects {
+    apply plugin: 'java'
 
-
-java {
-	withSourcesJar()
-	// withJavadocJar() // If docs are included with the project, this line can be un-commented
-
-    // Sets the Java version
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-}
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            groupId = group
-            artifactId = id
-
-		    from components.java
+    repositories {
+        maven {
+            name "JitPack"
+            url "https://jitpack.io"
         }
     }
 
-    repositories {
+    processResources {
+        // Locations of where to inject the properties
+        def resourceTargets = [ 'puzzle.mod.json', 'quilt.mod.json', '*.mixins.json' ]
 
+        // Left item is the name in the target, right is the varuable name
+        def replaceProperties = [
+                "mod_version": version,
+                "group": project.group,
+                "cosmic_reach_version": cosmic_reach_version,
+                "mod_name": mod_name,
+                "mod_id": mod_id,
+                "description": project.description,
+                "cosmic_quilt_version": cosmic_quilt_version,
+                "puzzle_loader_version": puzzle_loader_version
+        ]
+
+
+        inputs.properties replaceProperties
+        replaceProperties.put "project", project
+        filesMatching(resourceTargets) {
+            expand replaceProperties
+        }
     }
+}
+
+tasks.register('buildAll') {
+    group = "ModMixer"
+
+    dependsOn rootProject.project(':quilt').tasks.build
+    dependsOn rootProject.project(':puzzle').tasks.buildMergedBundleJar
+    finalizedBy rootProject.tasks.mergeJars
+}
+
+tasks.register('cleanAll') {
+    group = "ModMixer"
+
+    dependsOn rootProject.project(':quilt').tasks.clean
+    dependsOn rootProject.project(':puzzle').tasks.clean
+    dependsOn rootProject.tasks.clean
 }

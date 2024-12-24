@@ -4,17 +4,28 @@ buildscript() {
             name "JitPack"
             url "https://jitpack.io"
         }
+        maven {
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
+        }
 
         mavenCentral()
+        gradlePluginPortal()
         mavenLocal()
     }
     dependencies {
-        classpath "org.codeberg.CRModders:cosmic-loom:PR7-SNAPSHOT"
 
-        // When testing locally, this can be used
-//        classpath "dev.crmodders:CosmicLoom:1.0.2"
+        // Quilt
+        classpath "org.codeberg.CRModders:cosmic-loom:$cosmic_loom_version"
+
+        // Puzzle
+        classpath "com.github.johnrengelman:shadow:8.1.1"
+        classpath "com.github.PuzzleLoader:jigsaw:$jigsaw_gradle_version"
     }
 }
 
+include("puzzle")
+include("quilt")
 
-rootProject.name = "SimplyZooming"
+rootProject.name = 'SimplyZooming'
+
