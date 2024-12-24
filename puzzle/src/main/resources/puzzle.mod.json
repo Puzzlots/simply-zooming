@@ -1,0 +1,30 @@
+{
+  "formatVersion": 1,
+  "id": "${mod_id}",
+  "version": "${mod_version}",
+  "name": "${mod_name}",
+  "description": "${description}",
+  "authors": [
+    "Spicylemon",
+    "CrabKing"
+  ],
+  "meta": {
+    "icon": "${mod_id}:icons/icon.png"
+  },
+  "entrypoints": {
+    "client_init": [
+      "io.github.spicylemon2623.SimplyZooming.SimplyZoomingClient"
+    ],
+    "init": [
+      "io.github.spicylemon2623.SimplyZooming.SimplyZooming"
+    ]
+  },
+  "mixins": [
+    "${mod_id}.mixins.json"
+  ],
+  "depends": {
+    "cosmic-reach": ">=${cosmic_reach_version}",
+    "puzzle-loader": ">=${puzzle_loader_version}"
+  },
+  "accessManipulator": "${mod_id}.manipulator"
+}
