@@ -5,9 +5,9 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import finalforeach.cosmicreach.gamestates.ChatMenu;
 import finalforeach.cosmicreach.gamestates.InGame;
 import finalforeach.cosmicreach.settings.FloatSetting;
-import io.github.spicylemon2623.simply_zooming.SZConfig;
-import io.github.spicylemon2623.simply_zooming.SZoomControls;
-import io.github.spicylemon2623.simply_zooming.SimplyZooming;
+import io.github.spicylemon2623.SimplyZooming.SZConfig;
+import io.github.spicylemon2623.SimplyZooming.SZoomControls;
+import io.github.spicylemon2623.SimplyZooming.SimplyZooming;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
