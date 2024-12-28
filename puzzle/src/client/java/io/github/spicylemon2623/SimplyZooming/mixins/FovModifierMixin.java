@@ -19,7 +19,7 @@ public class FovModifierMixin {
         if (SZoomControls.zoomKeybind.isPressed() && !(currentGameState instanceof ChatMenu)){
             return SimplyZooming.tempZoomFov;
         } else if (!SZoomControls.zoomKeybind.isPressed() && !(currentGameState instanceof ChatMenu)) {
-            SimplyZooming.tempZoomFov = 60f;
+            SimplyZooming.tempZoomFov = 40f;
         }
         return original.call(instance);
     }

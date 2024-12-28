@@ -3,6 +3,8 @@ package io.github.spicylemon2623.SimplyZooming.mixins;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import finalforeach.cosmicreach.gamestates.ChatMenu;
+import finalforeach.cosmicreach.gamestates.YouDiedMenu;
+import finalforeach.cosmicreach.gamestates.PauseMenu;
 import finalforeach.cosmicreach.settings.GraphicsSettings;
 import finalforeach.cosmicreach.ui.FontRenderer;
 import finalforeach.cosmicreach.ui.HorizontalAnchor;
@@ -49,28 +51,29 @@ public class UIMixin {
 
     @Inject(method = "render", at = @At("HEAD"))
     private void drawZoomLevel(CallbackInfo ci) {
-        if (!SZoomControls.zoomKeybind.isPressed()) {
-            return;
+        if (!SZoomControls.zoomKeybind.isPressed()) {}
+        else if (!(currentGameState instanceof ChatMenu) && !(currentGameState instanceof YouDiedMenu) && !(currentGameState instanceof PauseMenu)) {
+
+            float zoomLevel = SimplyZooming.tempZoomFov;
+            String zoomText = String.format("Fov: %.1f", zoomLevel);
+
+            FontRenderer.getTextDimensions(this.uiViewport, zoomText, this.tmpVec);
+            final var textW = this.tmpVec.x;
+            final var textH = this.tmpVec.y;
+
+            UIElement elem = new UIElement(-textW / 2, 230, textW, textH) {
+            };
+            elem.hAnchor = HorizontalAnchor.CENTERED;
+
+
+            UI.batch.setProjectionMatrix(this.uiViewport.getCamera().combined);
+            elem.drawText(this.uiViewport, UI.batch);
+
+            UI.batch.begin();
+
+            FontRenderer.drawText(UI.batch, this.uiViewport, zoomText, -textW / 2, 230, false);
+
+            UI.batch.end();
         }
-
-        float zoomLevel = SimplyZooming.tempZoomFov;
-        String zoomText = String.format("Fov: %.1f", zoomLevel);
-
-        FontRenderer.getTextDimensions(this.uiViewport, zoomText, this.tmpVec);
-        final var textW = this.tmpVec.x;
-        final var textH = this.tmpVec.y;
-
-        UIElement elem = new UIElement(-textW/2, 230, textW, textH) { };
-        elem.hAnchor = HorizontalAnchor.CENTERED;
-
-
-        UI.batch.setProjectionMatrix(this.uiViewport.getCamera().combined);
-        elem.drawText(this.uiViewport, UI.batch);
-
-        UI.batch.begin();
-
-        FontRenderer.drawText(UI.batch, this.uiViewport, zoomText, -textW/2, 230, false);
-
-        UI.batch.end();
     }
 }
