@@ -2,9 +2,6 @@ package io.github.spicylemon2623.SimplyZooming.mixins;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import finalforeach.cosmicreach.gamestates.ChatMenu;
-import finalforeach.cosmicreach.gamestates.YouDiedMenu;
-import finalforeach.cosmicreach.gamestates.PauseMenu;
 import finalforeach.cosmicreach.settings.GraphicsSettings;
 import finalforeach.cosmicreach.ui.FontRenderer;
 import finalforeach.cosmicreach.ui.HorizontalAnchor;
@@ -12,6 +9,7 @@ import finalforeach.cosmicreach.ui.UI;
 import finalforeach.cosmicreach.ui.UIElement;
 import io.github.spicylemon2623.SimplyZooming.SZoomControls;
 import io.github.spicylemon2623.SimplyZooming.SimplyZooming;
+import io.github.spicylemon2623.SimplyZooming.SimplyZoomingClient;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -19,8 +17,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import static finalforeach.cosmicreach.gamestates.GameState.currentGameState;
 
 @Mixin(UI.class)
 public class UIMixin {
@@ -32,7 +28,7 @@ public class UIMixin {
 
     @Inject(method = "scrolled", at = @At("HEAD"), cancellable = true)
     public void scrolled(float amountX, float amountY, CallbackInfoReturnable<Boolean> cir){
-        if (SZoomControls.zoomKeybind.isPressed() && !(currentGameState instanceof ChatMenu)){
+        if (SimplyZoomingClient.changeZoomLevel()){
             if (amountY > 0) {
                 float oldZoomFov = SimplyZooming.tempZoomFov;
                 float newZoomFov = oldZoomFov + 1f;
@@ -52,7 +48,7 @@ public class UIMixin {
     @Inject(method = "render", at = @At("HEAD"))
     private void drawZoomLevel(CallbackInfo ci) {
         if (!SZoomControls.zoomKeybind.isPressed()) {}
-        else if (!(currentGameState instanceof ChatMenu) && !(currentGameState instanceof YouDiedMenu) && !(currentGameState instanceof PauseMenu)) {
+        else if (SimplyZoomingClient.drawZoomText()) {
 
             float zoomLevel = SimplyZooming.tempZoomFov;
             String zoomText = String.format("Fov: %.1f", zoomLevel);
