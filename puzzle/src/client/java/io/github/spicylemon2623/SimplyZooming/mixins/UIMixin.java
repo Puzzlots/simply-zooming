@@ -2,7 +2,6 @@ package io.github.spicylemon2623.SimplyZooming.mixins;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import finalforeach.cosmicreach.entities.player.Gamemode;
 import finalforeach.cosmicreach.gamestates.InGame;
@@ -13,7 +12,6 @@ import io.github.spicylemon2623.SimplyZooming.SimplyZooming;
 import io.github.spicylemon2623.SimplyZooming.SimplyZoomingClient;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -23,9 +21,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class UIMixin {
     @Shadow
     private Viewport uiViewport;
-
-    @Unique
-    private final Vector2 tmpVec = new Vector2();
 
     @Inject(method = "scrolled", at = @At("HEAD"), cancellable = true)
     public void scrolled(float amountX, float amountY, CallbackInfoReturnable<Boolean> cir){
