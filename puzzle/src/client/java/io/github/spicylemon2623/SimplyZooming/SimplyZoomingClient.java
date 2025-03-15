@@ -1,9 +1,7 @@
 package io.github.spicylemon2623.SimplyZooming;
 
 import com.github.puzzle.core.loader.launch.provider.mod.entrypoint.impls.ClientModInitializer;
-import finalforeach.cosmicreach.gamestates.ChatMenu;
-import finalforeach.cosmicreach.gamestates.PauseMenu;
-import finalforeach.cosmicreach.gamestates.YouDiedMenu;
+import finalforeach.cosmicreach.gamestates.*;
 import finalforeach.cosmicreach.ui.UI;
 
 import static finalforeach.cosmicreach.gamestates.GameState.currentGameState;

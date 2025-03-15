@@ -1,9 +1,7 @@
 package io.github.spicylemon2623.SimplyZooming;
 
 import dev.crmodders.cosmicquilt.api.entrypoint.ModInitializer;
-import finalforeach.cosmicreach.gamestates.ChatMenu;
-import finalforeach.cosmicreach.gamestates.PauseMenu;
-import finalforeach.cosmicreach.gamestates.YouDiedMenu;
+import finalforeach.cosmicreach.gamestates.*;
 import finalforeach.cosmicreach.ui.UI;
 import org.quiltmc.loader.api.ModContainer;
 import org.slf4j.Logger;

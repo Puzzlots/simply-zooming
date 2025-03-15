@@ -1,12 +1,13 @@
 package io.github.spicylemon2623.SimplyZooming.mixins;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import finalforeach.cosmicreach.entities.player.Gamemode;
+import finalforeach.cosmicreach.gamestates.InGame;
 import finalforeach.cosmicreach.settings.GraphicsSettings;
-import finalforeach.cosmicreach.ui.FontRenderer;
-import finalforeach.cosmicreach.ui.HorizontalAnchor;
-import finalforeach.cosmicreach.ui.UI;
-import finalforeach.cosmicreach.ui.UIElement;
+import finalforeach.cosmicreach.ui.*;
 import io.github.spicylemon2623.SimplyZooming.SZoomControls;
 import io.github.spicylemon2623.SimplyZooming.SimplyZooming;
 import io.github.spicylemon2623.SimplyZooming.SimplyZoomingClient;
@@ -49,25 +50,18 @@ public class UIMixin {
     private void drawZoomLevel(CallbackInfo ci) {
         if (!SZoomControls.zoomKeybind.isPressed()) {}
         else if (SimplyZoomingClient.drawZoomText()) {
-
             float zoomLevel = SimplyZooming.tempZoomFov;
             String zoomText = String.format("Fov: %.1f", zoomLevel);
 
-            FontRenderer.getTextDimensions(this.uiViewport, zoomText, this.tmpVec);
-            final var textW = this.tmpVec.x;
-            final var textH = this.tmpVec.y;
-
-            UIElement elem = new UIElement(-textW / 2, 230, textW, textH) {
-            };
-            elem.hAnchor = HorizontalAnchor.CENTERED;
-
+            int padding = -45;
+            if (InGame.getLocalPlayer().gamemode == Gamemode.get("s")) {padding -= 10;}
 
             UI.batch.setProjectionMatrix(this.uiViewport.getCamera().combined);
-            elem.drawText(this.uiViewport, UI.batch);
-
             UI.batch.begin();
 
-            FontRenderer.drawText(UI.batch, this.uiViewport, zoomText, -textW / 2, 230, false);
+            Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
+            Gdx.gl.glBindTexture(GL20.GL_TEXTURE_2D, 0);
+            FontRenderer.drawText(UI.batch, this.uiViewport, zoomText, 0, padding, HorizontalAnchor.CENTERED, VerticalAnchor.BOTTOM_ALIGNED);
 
             UI.batch.end();
         }
