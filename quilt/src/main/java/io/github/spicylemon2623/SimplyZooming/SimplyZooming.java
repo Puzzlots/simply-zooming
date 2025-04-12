@@ -12,7 +12,7 @@ import static finalforeach.cosmicreach.gamestates.GameState.currentGameState;
 public class SimplyZooming implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger("Simply Zooming");
 
-	public static float tempZoomFov = SZConfig.INSTANCE.zoomFov.getRealValue();
+	public static float tempZoomFov = SZConfig.INSTANCE.defMultiplier.getRealValue();
 
 	public static boolean allowZoom() {
 		return (SZoomControls.zoomKeybind.isPressed() && !(currentGameState instanceof ChatMenu) && !(UI.isInventoryOpen()));

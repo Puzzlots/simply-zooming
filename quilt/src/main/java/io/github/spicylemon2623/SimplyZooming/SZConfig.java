@@ -8,6 +8,6 @@ import org.quiltmc.loader.api.config.v2.QuiltConfig;
 public class SZConfig extends ReflectiveConfig {
     public static final SZConfig INSTANCE = QuiltConfig.create("", "simply_zooming", SZConfig.class);
 
-    @Comment("The new fov set when you zoom. Lower numbers mean more zoom")
-    public final TrackedValue<Float> zoomFov = this.value(40f);
+    @Comment("The default zoom multiplier. Higher numbers mean more zoom")
+    public final TrackedValue<Float> defMultiplier = this.value(1f);
 }
