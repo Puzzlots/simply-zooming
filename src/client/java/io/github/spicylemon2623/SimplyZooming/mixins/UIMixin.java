@@ -30,7 +30,7 @@ public class UIMixin {
         if (SimplyZoomingClient.changeZoomLevel()){
             if (amountY != 0 && SimplyZoomingClient.changeZoomLevel()) {
                 float baseFov = SimplyZooming.tempZoomFov;
-                float delta = amountY * 100f;
+                float delta = -amountY * 10f;
                 float slowZoomFov = GraphicsSettings.fieldOfView.getValue() - 30;
 
                 if (baseFov >= slowZoomFov) {

@@ -1,14 +1,12 @@
 package io.github.spicylemon2623.SimplyZooming;
 
-import com.github.puzzle.core.loader.launch.PuzzleClassLoader;
-import com.github.puzzle.core.loader.launch.provider.mod.entrypoint.impls.ClientModInitializer;
-import com.github.puzzle.game.PuzzleRegistries;
+import dev.puzzleshq.puzzleloader.cosmic.core.modInitialises.ClientModInit;
 import finalforeach.cosmicreach.gamestates.*;
 import finalforeach.cosmicreach.ui.UI;
 
 import static finalforeach.cosmicreach.gamestates.GameState.currentGameState;
 
-public class SimplyZoomingClient implements ClientModInitializer {
+public class SimplyZoomingClient implements ClientModInit {
     public static boolean allowZoom() {
         return (SZoomControls.zoomKeybind.isPressed() && !(currentGameState instanceof ChatMenu) && !(UI.isInventoryOpen()));
     }
@@ -26,8 +24,7 @@ public class SimplyZoomingClient implements ClientModInitializer {
     }
 
     @Override
-    public void onInit() {
+    public void onClientInit() {
         Constants.LOGGER.info("Simply Zooming Initialized!");
     }
-
 }

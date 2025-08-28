@@ -1,74 +1,51 @@
 plugins {
-    id 'java'
-    id "io.github.pacifistmc.forgix" version "1.2.9"
-    id "cosmicloom" apply(false)
-    id "jigsaw" apply(false)
-    id "com.github.johnrengelman.shadow" apply(false)
+    id "java"
+    id "jigsaw"
+    id 'com.gradleup.shadow'
 }
 
-forgix {
-    group = "${group}"
-    mergedJarName = "${mod_name}-${project.version}.jar"
-    outputDir = "build/libs"
-
-    quilt {
-        projectName = "quilt"
-        jarLocation = "build/libs/quilt-${project.version}.jar"
-    }
-
-    custom {
-        projectName = "puzzle"
-        jarLocation = "build/libs/puzzle-${project.version}-merged-bundle.jar"
-    }
-}
-
-subprojects {
-    apply plugin: 'java'
-
-    repositories {
-        maven {
-            name "JitPack"
-            url "https://jitpack.io"
+loom {
+    splitEnvironmentSourceSets()
+    mods {
+        "${id}" {
+            sourceSet sourceSets.main
+            sourceSet sourceSets.client
         }
     }
+    accessWidenerPath = file("src/main/resources/${id}.manipulator")
+}
 
-    processResources {
-        // Locations of where to inject the properties
-        def resourceTargets = [ 'puzzle.mod.json', 'quilt.mod.json', '*.mixins.json' ]
-
-        // Left item is the name in the target, right is the varuable name
-        def replaceProperties = [
-                "mod_version": version,
-                "group": project.group,
-                "cosmic_reach_version": cosmic_reach_version,
-                "mod_name": mod_name,
-                "mod_id": mod_id,
-                "description": project.description,
-                "cosmic_quilt_version": cosmic_quilt_version,
-                "puzzle_loader_version": puzzle_loader_version
-        ]
-
-
-        inputs.properties replaceProperties
-        replaceProperties.put "project", project
-        filesMatching(resourceTargets) {
-            expand replaceProperties
-        }
+repositories {
+    mavenCentral()
+    maven {
+        url "https://jitpack.io"
     }
 }
 
-tasks.register('buildAll') {
-    group = "ModMixer"
-
-    dependsOn rootProject.project(':quilt').tasks.build
-    dependsOn rootProject.project(':puzzle').tasks.buildMergedBundleJar
-    finalizedBy rootProject.tasks.mergeJars
+dependencies {
+    cosmicReach("finalforeach:cosmicreach:${cosmic_reach_version}")
 }
 
-tasks.register('cleanAll') {
-    group = "ModMixer"
+processResources {
+    // Locations of where to inject the properties
+    def resourceTargets = [ "puzzle.mod.json" ]
 
-    dependsOn rootProject.project(':quilt').tasks.clean
-    dependsOn rootProject.project(':puzzle').tasks.clean
-    dependsOn rootProject.tasks.clean
+    // Left item is the name in the target, right is the varuable name
+    def replaceProperties = [
+            "mod_version"     : version,
+            "mod_desc"        : description,
+            "mod_name"        : project.name,
+            "mod_id"          : id,
+            "cosmic_reach"    : cosmic_reach_version,
+            "cosmic_reach_minimum"    : cosmic_reach_minimum_version,
+            "puzzle_loader_cosmic"    : puzzle_cosmic_version,
+            "puzzle_loader_core"      : puzzle_core_version
+    ]
+
+
+    inputs.properties replaceProperties
+    replaceProperties.put "project", project
+    filesMatching(resourceTargets) {
+        expand replaceProperties
+    }
 }

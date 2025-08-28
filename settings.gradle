@@ -1,4 +1,4 @@
-buildscript() {
+buildscript {
     repositories {
         maven {
             name "JitPack"
@@ -8,24 +8,14 @@ buildscript() {
             name = 'Fabric'
             url = 'https://maven.fabricmc.net/'
         }
-
         mavenCentral()
         gradlePluginPortal()
-        mavenLocal()
     }
     dependencies {
-
-        // Quilt
-        classpath "org.codeberg.CRModders:cosmic-loom:$cosmic_loom_version"
-
-        // Puzzle
-        classpath "com.github.johnrengelman:shadow:8.1.1"
-        classpath "com.github.PuzzleLoader:jigsaw:$jigsaw_gradle_version"
+        classpath "com.gradleup.shadow:shadow-gradle-plugin:8.3.3"
+        classpath "com.github.PuzzlesHQ:jigsaw:$jigsaw_gradle_version"
     }
 }
-
-include("puzzle")
-include("quilt")
 
 rootProject.name = 'SimplyZooming'
 

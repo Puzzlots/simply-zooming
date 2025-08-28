@@ -1,9 +1,12 @@
 .gradle
 build/
+.idea/
 .idea
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+
+### Puzzle Loader ###
 run/
 
 ### IntelliJ IDEA ###
@@ -43,3 +46,4 @@ bin/
 ### Mac OS ###
 .DS_Store
 /.idea
+/.idea/
