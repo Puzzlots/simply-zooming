@@ -17,7 +17,7 @@ public class FovModifierMixin {
     @Shadow
     float targetFovOffset;
 
-    @Inject(method = "render", at = @At(value = "FIELD", target = "Lfinalforeach/cosmicreach/gamestates/InGame;targetFovOffset:F", opcode = Opcodes.PUTFIELD, ordinal = 0, shift = At.Shift.AFTER))
+    @Inject(method = "renderWorld", at = @At(value = "FIELD", target = "Lfinalforeach/cosmicreach/gamestates/InGame;targetFovOffset:F", opcode = Opcodes.PUTFIELD, ordinal = 0, shift = At.Shift.AFTER))
     private void applyZoomFov(CallbackInfo ci) {
         if (SimplyZoomingClient.allowZoom()) {
             this.targetFovOffset = -(tempZoomFov);

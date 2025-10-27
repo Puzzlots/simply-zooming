@@ -1,6 +1,6 @@
 package io.github.spicylemon2623.SimplyZooming;
 
-import dev.puzzleshq.puzzleloader.cosmic.core.modInitialises.ClientModInit;
+import dev.puzzleshq.puzzleloader.loader.mod.entrypoint.client.ClientModInit;
 import finalforeach.cosmicreach.gamestates.*;
 import finalforeach.cosmicreach.ui.UI;
 

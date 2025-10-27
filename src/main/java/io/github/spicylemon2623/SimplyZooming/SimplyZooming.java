@@ -1,6 +1,6 @@
 package io.github.spicylemon2623.SimplyZooming;
 
-import dev.puzzleshq.puzzleloader.cosmic.core.modInitialises.ModInit;
+import dev.puzzleshq.puzzleloader.loader.mod.entrypoint.common.ModInit;
 
 public class SimplyZooming implements ModInit {
     public static float tempZoomFov;
