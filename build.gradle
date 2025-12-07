@@ -1,37 +1,34 @@
 plugins {
-    id "java"
-    id "jigsaw"
-    id 'com.gradleup.shadow'
+    id 'java'
+    id 'jigsaw-cosmic-reach'
 }
 
-loom {
-    splitEnvironmentSourceSets()
-    mods {
-        "${id}" {
-            sourceSet sourceSets.main
-            sourceSet sourceSets.client
-        }
-    }
-    accessWidenerPath = file("src/main/resources/${id}.manipulator")
+jigsawGame {
+    splitSourceSets()
+}
+
+jigsawAccess {
+    addManipulators(file("$projectDir/src/common/resources/${id}.manipulator"))
+}
+
+jigsawInject {
+    setModJson(file("$projectDir/src/common/resources/puzzle.mod.json"))
 }
 
 repositories {
     mavenCentral()
-    maven {
-        url "https://jitpack.io"
-    }
 }
 
 dependencies {
-    cosmicReach("finalforeach:cosmicreach:${cosmic_reach_version}")
+    puzzleLoader "dev.puzzleshq:puzzle-loader-core:$puzzle_core_version"
+    puzzleLoader "dev.puzzleshq:puzzle-loader-cosmic:$puzzle_cosmic_version"
+
+    cosmicReach("finalforeach:cosmic-reach:${cosmic_reach_version}")
+
 }
 
-processResources {
-    // Locations of where to inject the properties
-    def resourceTargets = [ "puzzle.mod.json" ]
-
-    // Left item is the name in the target, right is the varuable name
-    def replaceProperties = [
+processCommonResources {
+    def projectProperties = [
             "mod_version"     : version,
             "mod_desc"        : description,
             "mod_name"        : project.name,
@@ -42,10 +39,15 @@ processResources {
             "puzzle_loader_core"      : puzzle_core_version
     ]
 
+    inputs.properties projectProperties
 
-    inputs.properties replaceProperties
-    replaceProperties.put "project", project
-    filesMatching(resourceTargets) {
-        expand replaceProperties
+    filesMatching(["puzzle.mod.json"]) {
+        expand projectProperties
     }
 }
+
+wrapper {
+    gradleVersion = "9.0"
+    distributionType = Wrapper.DistributionType.ALL
+}
+

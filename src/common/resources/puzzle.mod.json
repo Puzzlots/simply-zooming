@@ -8,6 +8,10 @@
     "Spicylemon",
     "CrabKing"
   ],
+  "can-load-on": {
+    "client": true,
+    "server": true
+  },
   "meta": {
     "icon": "${mod_id}:icons/icon.png"
   },
