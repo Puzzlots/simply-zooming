@@ -3,40 +3,55 @@ plugins {
     id 'jigsaw-cosmic-reach'
 }
 
+group = p_group
+version = p_version
+
 jigsawGame {
     splitSourceSets()
 }
-
 jigsawAccess {
-    addManipulators(file("$projectDir/src/common/resources/${id}.manipulator"))
-}
-
-jigsawInject {
-    setModJson(file("$projectDir/src/common/resources/puzzle.mod.json"))
+    addManipulators(file("$projectDir/src/common/resources/${p_id}.manipulator"))
 }
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
-    puzzleLoader "dev.puzzleshq:puzzle-loader-core:$puzzle_core_version"
-    puzzleLoader "dev.puzzleshq:puzzle-loader-cosmic:$puzzle_cosmic_version"
+    puzzleLoader "dev.puzzleshq:puzzle-loader-core:$puzzle_loader_core_version"
+    puzzleLoader "dev.puzzleshq:puzzle-loader-cosmic:$puzzle_loader_cosmic_version"
 
     cosmicReach("finalforeach:cosmic-reach:${cosmic_reach_version}")
-
 }
 
 processCommonResources {
+
+    def authors = "\"" + p_author + "\""
+
+    if (p_author.contains(",")) {
+        def items = p_author.split(',')
+        StringBuilder sb = new StringBuilder()
+
+        def isFirst = true
+
+        for (item in items) {
+            if (!isFirst) sb.append(", ")
+            sb.append("\"" + item + "\"")
+            isFirst = false
+        }
+
+        authors = sb.toString()
+    }
+
     def projectProperties = [
-            "mod_version"     : version,
-            "mod_desc"        : description,
-            "mod_name"        : project.name,
-            "mod_id"          : id,
-            "cosmic_reach"    : cosmic_reach_version,
-            "cosmic_reach_minimum"    : cosmic_reach_minimum_version,
-            "puzzle_loader_cosmic"    : puzzle_cosmic_version,
-            "puzzle_loader_core"      : puzzle_core_version
+            "p_name": p_name,
+            "p_version": ((String)version).contains(".") ? version : "0.0.0",
+            "p_desc": p_desc,
+
+            "p_id": p_id,
+            "p_group": p_group,
+            "p_authors": authors
     ]
 
     inputs.properties projectProperties
@@ -47,7 +62,6 @@ processCommonResources {
 }
 
 wrapper {
-    gradleVersion = "9.0"
+    gradleVersion = "8.14"
     distributionType = Wrapper.DistributionType.ALL
 }
-

@@ -6,7 +6,7 @@ import finalforeach.cosmicreach.ui.UI;
 
 import static finalforeach.cosmicreach.gamestates.GameState.currentGameState;
 
-public class SimplyZoomingClient implements ClientModInit {
+public class SimplyZoomingClient  {
     public static boolean allowZoom() {
         return (SZoomControls.zoomKeybind.isPressed() && !(currentGameState instanceof ChatMenu) && !(UI.isInventoryOpen()));
     }
@@ -23,8 +23,4 @@ public class SimplyZoomingClient implements ClientModInit {
         return (!(currentGameState instanceof ChatMenu) && !(currentGameState instanceof YouDiedMenu) && !(currentGameState instanceof PauseMenu) && !(UI.isInventoryOpen()) && UI.renderUI);
     }
 
-    @Override
-    public void onClientInit() {
-        Constants.LOGGER.info("Simply Zooming Initialized!");
-    }
 }

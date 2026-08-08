@@ -1,35 +1,38 @@
 {
   "formatVersion": 3,
-  "display-name": "${mod_name}",
-  "id": "${mod_id}",
-  "version": "${mod_version}",
-  "description": "${mod_desc}",
+  "display-name": "${p_name}",
+  "id": "${p_id}",
+  "version": "${p_version}",
+  "description": "${p_desc}",
   "authors": [
-    "Spicylemon",
-    "CrabKing"
+    ${p_authors}
   ],
   "can-load-on": {
     "client": true,
-    "server": true
+    "server": false
   },
+
   "meta": {
-    "icon": "${mod_id}:icons/icon.png"
+    "icon": "${p_id}:icons/icon.png"
   },
+
   "entrypoints": {
-    "client_init": [
-      "io.github.spicylemon2623.SimplyZooming.SimplyZoomingClient"
-    ],
-    "init": [
-      "io.github.spicylemon2623.SimplyZooming.SimplyZooming"
-    ]
   },
+
   "mixins": [
-    "${mod_id}.mixins.json"
+    {
+      "config": "${p_id}.client.mixins.json",
+      "environment": "client"
+    }
   ],
+
   "depends": {
-    "cosmic-reach": ">=${cosmic_reach_minimum}",
-    "puzzle-loader-cosmic": ">=${puzzle_loader_cosmic}",
-    "puzzle-loader-core": ">=${puzzle_loader_core}"
+    "cosmic-reach": ">=0.5.26-alpha",
+    "puzzle-loader-cosmic": ">=1.7.3-alpha",
+    "puzzle-loader-core": ">=1.4.1-alpha"
   },
-  "accessManipulator": "${mod_id}.manipulator"
+
+  "access-writers": [
+    "${p_id}.manipulator"
+  ]
 }
